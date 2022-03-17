@@ -1,6 +1,6 @@
 import React from "react";
 
-import Logo1 from "./assets/logo1.svg";
+import Logo1 from "../../assets/logo1.svg";
 import {
   Container,
   ContainerItens,

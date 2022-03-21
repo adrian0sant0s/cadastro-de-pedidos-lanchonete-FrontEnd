@@ -82,3 +82,47 @@ export const Button = styled.button`
     opacity: 1;
   }
 `;
+
+export const Solicitation = styled.li`
+  width: 342px;
+  height: 101px;
+
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 14px;
+
+  border: none;
+
+  margin-bottom: 50px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  p {
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    color: #ffffff;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 1;
+    }
+  }
+`;

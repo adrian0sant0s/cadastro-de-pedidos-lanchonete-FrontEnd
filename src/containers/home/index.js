@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import Logo1 from "../../assets/logo1.svg";
 import Trash from "../../assets/trash.svg";
@@ -16,19 +16,23 @@ import {
 
 function App() {
   const [request, setRequest] = useState([]);
-  const [order, setOrder] = useState();
-  const [name, setName] = useState();
+  const inputOrder = useRef();
+  const inputName = useRef();
 
   function addNewSolicitation() {
-    setRequest([{ id: Math.random, order, name }]);
+    setRequest([
+      ...request,
+      {
+        id: Math.random(),
+        order: inputOrder.current.value,
+        name: inputName.current.value,
+      },
+    ]);
   }
 
-  function changeInputOrder(event) {
-    setOrder(event.target.value);
-  }
-
-  function changeInputName(event) {
-    setName(event.target.value);
+  function deleted(requestId) {
+    const newRequest = request.filter((requests) => request.id !== requestId);
+    setRequest(newRequest);
   }
 
   return (
@@ -37,13 +41,10 @@ function App() {
         <Image alt="Image-hamburguer" src={Logo1}></Image>
         <H1>Faça seu pedido!</H1>
         <InputLabel>Pedido</InputLabel>
-        <Input
-          onChange={changeInputOrder}
-          placeholder="1 coca-cola, 1 x-tudo"
-        ></Input>
+        <Input ref={inputOrder} placeholder="1 coca-cola, 1 x-tudo"></Input>
 
         <InputLabel>Nome do cliente</InputLabel>
-        <Input onChange={changeInputName} placeholder="Steve"></Input>
+        <Input ref={inputName} placeholder="Steve"></Input>
         <Button onClick={addNewSolicitation}>Novo pedido</Button>
 
         <ul>
@@ -52,7 +53,7 @@ function App() {
               <div>
                 <p>{solicitation.order}</p> <p>{solicitation.name}</p>
               </div>
-              <button>
+              <button onClick={() => deleted(request.id)}>
                 <img src={Trash} alt="lata-lixo" />
               </button>
             </Solicitation>

@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 
 import Logo1 from "../../assets/logo1.svg";
-import Trash from "../../assets/trash.svg";
 
 import {
   Container,
@@ -12,7 +11,6 @@ import {
   InputLabel,
   Input,
   Button,
-  Solicitation,
 } from "./styles.js";
 
 function App() {
@@ -32,25 +30,6 @@ function App() {
     setRequest([...request, newSolicitation]);
   }
 
-  useEffect(() => {
-    async function fetchOrder() {
-      const { data: newSolicitations } = await axios.get(
-        "http://localhost:3003/users"
-      );
-      setRequest(newSolicitations);
-    }
-
-    fetchOrder();
-  }, []);
-
-  async function deleted(solicitationtId) {
-    await axios.delete(`http://localhost:3003/users/${solicitationtId}`);
-    const newRequest = request.filter(
-      (solicitation) => solicitation.id !== solicitationtId
-    );
-    setRequest(newRequest);
-  }
-
   return (
     <Container>
       <ContainerItens>
@@ -62,19 +41,6 @@ function App() {
         <InputLabel>Nome do cliente</InputLabel>
         <Input ref={inputName} placeholder="Steve"></Input>
         <Button onClick={addNewSolicitation}>Novo pedido</Button>
-
-        <ul>
-          {request.map((solicitation) => (
-            <Solicitation key={solicitation.id}>
-              <div>
-                <p>{solicitation.order}</p> <p>{solicitation.name}</p>
-              </div>
-              <button onClick={() => deleted(solicitation.id)}>
-                <img src={Trash} alt="lata-lixo" />
-              </button>
-            </Solicitation>
-          ))}
-        </ul>
       </ContainerItens>
     </Container>
   );

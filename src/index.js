@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./containers/home";
-// import Order from "./containers/order";
+
 import GlobalStyles from "./styles/globalStyles";
+
+import Routes from "./routes";
 
 ReactDOM.render(
   <>
-    <App /> <GlobalStyles />
+    <Routes /> <GlobalStyles />
   </>,
   document.getElementById("root")
 );

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Logo2 from "../../assets/logo2.svg";
@@ -15,6 +16,7 @@ import {
 
 function Order() {
   const [request, setRequest] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchOrder() {
@@ -33,6 +35,10 @@ function Order() {
       (solicitation) => solicitation.id !== solicitationtId
     );
     setRequest(newRequest);
+  }
+
+  function goBackPage() {
+    history.push("/");
   }
 
   return (
@@ -54,7 +60,7 @@ function Order() {
           ))}
         </ul>
 
-        <Button>Voltar</Button>
+        <Button onClick={goBackPage}>Voltar</Button>
       </ContainerItens>
     </Container>
   );

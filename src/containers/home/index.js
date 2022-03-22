@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import Logo1 from "../../assets/logo1.svg";
@@ -17,6 +18,7 @@ function App() {
   const [request, setRequest] = useState([]);
   const inputOrder = useRef();
   const inputName = useRef();
+  const history = useHistory();
 
   async function addNewSolicitation() {
     const { data: newSolicitation } = await axios.post(
@@ -28,6 +30,7 @@ function App() {
     );
 
     setRequest([...request, newSolicitation]);
+    history.push("/Order");
   }
 
   return (

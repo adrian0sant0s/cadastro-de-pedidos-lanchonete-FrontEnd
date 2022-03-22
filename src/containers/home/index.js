@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 import Logo1 from "../../assets/logo1.svg";
@@ -21,23 +21,33 @@ function App() {
   const inputName = useRef();
 
   async function addNewSolicitation() {
-    const data = await axios.post("http://localhost:3003/users", {
-      order: inputOrder.current.value,
-      name: inputName.current.value,
-    });
-    console.log(data);
-    // setRequest([
-    //   ...request,
-    //   {
-    //     id: Math.random(),
-    //     order: inputOrder.current.value,
-    //     name: inputName.current.value,
-    //   },
-    // ]);
+    const { data: newSolicitation } = await axios.post(
+      "http://localhost:3003/users",
+      {
+        order: inputOrder.current.value,
+        name: inputName.current.value,
+      }
+    );
+
+    setRequest([...request, newSolicitation]);
   }
 
-  function deleted(requestId) {
-    const newRequest = request.filter((requests) => request.id !== requestId);
+  useEffect(() => {
+    async function fetchOrder() {
+      const { data: newSolicitations } = await axios.get(
+        "http://localhost:3003/users"
+      );
+      setRequest(newSolicitations);
+    }
+
+    fetchOrder();
+  }, []);
+
+  async function deleted(solicitationtId) {
+    await axios.delete(`http://localhost:3003/users/${solicitationtId}`);
+    const newRequest = request.filter(
+      (solicitation) => solicitation.id !== solicitationtId
+    );
     setRequest(newRequest);
   }
 
@@ -55,11 +65,11 @@ function App() {
 
         <ul>
           {request.map((solicitation) => (
-            <Solicitation key={request.id}>
+            <Solicitation key={solicitation.id}>
               <div>
                 <p>{solicitation.order}</p> <p>{solicitation.name}</p>
               </div>
-              <button onClick={() => deleted(request.id)}>
+              <button onClick={() => deleted(solicitation.id)}>
                 <img src={Trash} alt="lata-lixo" />
               </button>
             </Solicitation>

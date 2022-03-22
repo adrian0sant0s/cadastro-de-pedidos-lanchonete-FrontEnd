@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 
 import Logo1 from "../../assets/logo1.svg";
 import Trash from "../../assets/trash.svg";
@@ -19,15 +20,20 @@ function App() {
   const inputOrder = useRef();
   const inputName = useRef();
 
-  function addNewSolicitation() {
-    setRequest([
-      ...request,
-      {
-        id: Math.random(),
-        order: inputOrder.current.value,
-        name: inputName.current.value,
-      },
-    ]);
+  async function addNewSolicitation() {
+    const data = await axios.post("http://localhost:3003/users", {
+      order: inputOrder.current.value,
+      name: inputName.current.value,
+    });
+    console.log(data);
+    // setRequest([
+    //   ...request,
+    //   {
+    //     id: Math.random(),
+    //     order: inputOrder.current.value,
+    //     name: inputName.current.value,
+    //   },
+    // ]);
   }
 
   function deleted(requestId) {

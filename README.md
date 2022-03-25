@@ -1,4 +1,4 @@
-# LAnchonete CodeClub
+# Lanchonete CodeClub
 
 ### Adicionando e excluindo pedidos!
 

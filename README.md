@@ -1,9 +1,9 @@
-# Hamburgueria CodeClub
+# LAnchonete CodeClub
 
 ### Adicionando e excluindo pedidos!
 
 <img src="./src/assets/burguer.gif" alt="printscreen da aplicação">
-> Essa aplicação é uma pagina de uma hamburgueria onde voce pode fazer pedidos!
+> Essa aplicação é uma pagina de uma lanchonete onde voce pode fazer pedidos!
 <br>
 <br>
 
